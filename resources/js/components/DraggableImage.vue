@@ -34,12 +34,13 @@ function enableMoving(event) {
         const newX = prevX - event.clientX;
         const newY = prevY - event.clientY;
 
+
         const rect = img.value.getBoundingClientRect();
-        const proposedY = rect.top - newY;
-        const proposedX = rect.left - newX;
+        const proposedY = rect.y - newY;
+        const proposedX = rect.x - newX;
 
         if (proposedY < canvasTop) {
-            img.value.style.top = canvasTop;
+            img.value.style.top = canvasTop + 'px';
         } else if (proposedY > canvasTop + canvasHeight - img.value.getOffsetHeight) {
             img.value.style.top = canvasTop + canvasHeight - img.value.getOffsetHeight + 'px';
         } else {
