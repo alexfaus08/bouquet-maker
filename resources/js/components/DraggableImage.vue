@@ -29,11 +29,12 @@ function enableMoving(event) {
 
     let prevX = event.clientX;
     let prevY = event.clientY;
+    const imgHeight = img.value.offsetHeight;
+    const imgWidth = img.value.offsetWidth;
 
     function moveElement(event) {
         const newX = prevX - event.clientX;
         const newY = prevY - event.clientY;
-
 
         const rect = img.value.getBoundingClientRect();
         const proposedY = rect.y - newY;
@@ -42,9 +43,9 @@ function enableMoving(event) {
         if (proposedY < canvasTop) {
             // if it tried to go above the canvas, set it to the canvas top
             img.value.style.top = canvasTop + 'px';
-        } else if (proposedY + img.value.offsetHeight > canvasTop + canvasHeight) {
+        } else if (proposedY + imgHeight > canvasTop + canvasHeight) {
             // if it tried to go below the canvas, set it to the canvas bottom
-            img.value.style.top = canvasTop + canvasHeight - img.value.offsetHeight + 'px';
+            img.value.style.top = canvasTop + canvasHeight - imgHeight + 'px';
         } else {
             // otherwise, let it go where it wants!
             img.value.style.top = proposedY + 'px';
@@ -53,9 +54,9 @@ function enableMoving(event) {
         if (proposedX < canvasLeft) {
             // if it tried to go to the left of the canvas, set it to the canvas left
             img.value.style.left = canvasLeft;
-        } else if (proposedX + img.value.offsetWidth > canvasLeft + canvasWidth) {
+        } else if (proposedX + imgWidth > canvasLeft + canvasWidth) {
             // if it tried to go to the right of the canvas, set it to the canvas right
-            img.value.style.left = canvasLeft + canvasWidth - img.value.offsetWidth + 'px';
+            img.value.style.left = canvasLeft + canvasWidth - imgWidth + 'px';
         } else {
             // otherwise, let it go where it wants!
             img.value.style.left = proposedX + 'px';
