@@ -6,10 +6,24 @@
   />
 </template>
 <script setup>
-import {ref} from 'vue';
+import {ref, defineProps} from 'vue';
+
+const props = defineProps({
+    // eslint-disable-next-line vue/require-prop-types
+    canvas: {
+        required: true,
+        type: HTMLElement
+    }
+});
 
 const img = ref(null);
+
 function enableMoving(event) {
+    const canvasHeight = props.canvas.offsetHeight;
+    const canvasWidth = props.canvas.offsetWidth;
+    const canvasTop = props.canvas.offsetTop;
+    const canvasLeft = props.canvas.offsetLeft;
+
     window.addEventListener('mousemove', moveElement);
     window.addEventListener('mouseup', disableMoving);
 
@@ -21,9 +35,24 @@ function enableMoving(event) {
         const newY = prevY - event.clientY;
 
         const rect = img.value.getBoundingClientRect();
+        const proposedY = rect.top - newY;
+        const proposedX = rect.left - newX;
 
-        img.value.style.left = rect.left - newX + 'px';
-        img.value.style.top = rect.top - newY + 'px';
+        if (proposedY < canvasTop) {
+            img.value.style.top = canvasTop;
+        } else if (proposedY > canvasTop + canvasHeight - img.value.getOffsetHeight) {
+            img.value.style.top = canvasTop + canvasHeight - img.value.getOffsetHeight + 'px';
+        } else {
+            img.value.style.top = proposedY + 'px';
+        }
+
+        if (proposedX < canvasLeft) {
+            img.value.style.left = canvasLeft;
+        } else if (proposedX > canvasLeft + canvasWidth - img.value.getOffsetWidth) {
+            img.value.style.left = canvasLeft + canvasWidth - img.value.getOffsetWidth + 'px';
+        } else {
+            img.value.style.left = proposedX + 'px';
+        }
 
         prevX = event.clientX;
         prevY = event.clientY;
