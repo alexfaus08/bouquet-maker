@@ -38,10 +38,9 @@ function enableMoving(event) {
         const rect = img.value.getBoundingClientRect();
         const proposedY = rect.y - newY;
         const proposedX = rect.x - newX;
-
         if (proposedY < canvasTop) {
             img.value.style.top = canvasTop + 'px';
-        } else if (proposedY > canvasTop + canvasHeight - img.value.getOffsetHeight) {
+        } else if (proposedY + img.value.offsetHeight > canvasTop + canvasHeight) {
             img.value.style.top = canvasTop + canvasHeight - img.value.getOffsetHeight + 'px';
         } else {
             img.value.style.top = proposedY + 'px';
