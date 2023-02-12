@@ -41,15 +41,15 @@ function enableMoving(event) {
         if (proposedY < canvasTop) {
             img.value.style.top = canvasTop + 'px';
         } else if (proposedY + img.value.offsetHeight > canvasTop + canvasHeight) {
-            img.value.style.top = canvasTop + canvasHeight - img.value.getOffsetHeight + 'px';
+            img.value.style.top = canvasTop + canvasHeight - img.value.offsetHeight + 'px';
         } else {
             img.value.style.top = proposedY + 'px';
         }
 
         if (proposedX < canvasLeft) {
             img.value.style.left = canvasLeft;
-        } else if (proposedX > canvasLeft + canvasWidth - img.value.getOffsetWidth) {
-            img.value.style.left = canvasLeft + canvasWidth - img.value.getOffsetWidth + 'px';
+        } else if (proposedX + img.value.offsetWidth > canvasLeft + canvasWidth) {
+            img.value.style.left = canvasLeft + canvasWidth - img.value.offsetWidth + 'px';
         } else {
             img.value.style.left = proposedX + 'px';
         }
