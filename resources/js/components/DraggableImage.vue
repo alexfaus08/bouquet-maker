@@ -6,7 +6,7 @@
   />
 </template>
 <script setup lang="ts">
-import {ref, defineProps} from 'vue';
+import {ref} from 'vue';
 
 const props = defineProps({
     // eslint-disable-next-line vue/require-prop-types
