@@ -39,6 +39,9 @@ let isResizing = false;
 function resizeElement(anchor: string, event: MouseEvent) {
     isResizing = true;
 
+    const rect = img.value!.getBoundingClientRect();
+    const ratio = rect.height / rect.width;
+
     let prevX = event.clientX;
     let prevY = event.clientY;
 
@@ -47,24 +50,30 @@ function resizeElement(anchor: string, event: MouseEvent) {
 
     function resizeImg(event: MouseEvent) {
         const rect = img.value!.getBoundingClientRect();
+        let newWidth = rect.width;
+        let newHeight = rect.height;
 
         if (anchor === 'se') {
-            img.value!.style.width = rect.width - (prevX - event.clientX) + 'px';
-            img.value!.style.height = rect.height - (prevY - event.clientY) + 'px';
+            newWidth = rect.width - (prevX - event.clientX);
+            newHeight = newWidth * ratio;
         } else if (anchor === 'sw') {
-            img.value!.style.width = rect.width + (prevX - event.clientX) + 'px';
-            img.value!.style.height = rect.height - (prevY - event.clientY) + 'px';
+            newWidth = rect.width + (prevX - event.clientX);
+            newHeight = newWidth * ratio;
             img.value!.style.left = rect.left - (prevX - event.clientX) + 'px';
         } else if (anchor === 'ne') {
-            img.value!.style.width = rect.width - (prevX - event.clientX) + 'px';
-            img.value!.style.height = rect.height + (prevY - event.clientY) + 'px';
+            newWidth = rect.width - (prevX - event.clientX);
+            newHeight = newWidth * ratio;
             img.value!.style.top = rect.top - (prevY - event.clientY) + 'px';
         } else {
-            img.value!.style.width = rect.width + (prevX - event.clientX) + 'px';
-            img.value!.style.height = rect.height + (prevY - event.clientY) + 'px';
+            // nw
+            newWidth = rect.width + (prevX - event.clientX);
+            newHeight = newWidth * ratio;
             img.value!.style.top = rect.top - (prevY - event.clientY) + 'px';
             img.value!.style.left = rect.left - (prevX - event.clientX) + 'px';
         }
+
+        img.value!.style.width = newWidth + 'px';
+        img.value!.style.height = newHeight + 'px';
 
         prevX = event.clientX;
         prevY = event.clientY;
