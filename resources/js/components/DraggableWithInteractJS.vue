@@ -1,5 +1,5 @@
 <template>
-  <div class="resize-drag box-border h-32 w-32 bg-pink-600" />
+  <div class="resize-drag absolute box-border h-32 w-32 touch-none select-none bg-pink-600" />
 </template>
 
 <script setup lang="ts">
@@ -47,17 +47,17 @@ interact('.resize-drag')
             }
         },
         modifiers: [
-            // keep the edges inside the parent
-            interact.modifiers.restrictEdges({
-                outer: 'parent'
-            }),
 
             interact.modifiers.aspectRatio({
                 // make sure the width is always double the height
                 ratio: 'preserve',
                 // also restrict the size by nesting another modifier
                 modifiers: [
-                    interact.modifiers.restrictSize({max: 'parent'})
+                    interact.modifiers.restrictSize({max: 'parent'}),
+                    // keep the edges inside the parent
+                    interact.modifiers.restrictEdges({
+                        outer: 'parent'
+                    })
                 ]
             }),
 
