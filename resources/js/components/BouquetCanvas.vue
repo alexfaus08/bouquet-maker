@@ -4,7 +4,6 @@
       ref="canvas"
       class="canvas mx-auto my-10 h-5/6 w-1/2 rounded border-4 border-pink-500 bg-pink-100"
     >
-      <!--      <DraggableImage :canvas="canvas" />-->
       <DraggableWithInteractJS />
     </div>
   </div>

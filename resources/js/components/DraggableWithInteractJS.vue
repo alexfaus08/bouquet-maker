@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import interact from 'interactjs';
 
-function dragMoveListener(event) {
+function dragMoveListener(event: { target: any; dx: number; dy: number; }) {
     const target = event.target;
     // keep the dragged position in the data-x/data-y attributes
     const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
@@ -63,7 +63,7 @@ interact('.resize-drag')
 
             // minimum size
             interact.modifiers.restrictSize({
-                min: {width: 100, height: 50}
+                min: {width: 100, height: 100}
             })
         ],
 
@@ -71,7 +71,6 @@ interact('.resize-drag')
     })
     .draggable({
         listeners: {move: dragMoveListener},
-        inertia: true,
         modifiers: [
             interact.modifiers.restrictRect({
                 restriction: 'parent'
