@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import interact from 'interactjs';
+
 function dragMoveListener(event) {
     const target = event.target;
     // keep the dragged position in the data-x/data-y attributes
@@ -15,10 +16,11 @@ function dragMoveListener(event) {
         target.style.transform =
             'translate(' + x + 'px, ' + y + 'px)';
 
-    // update the posiion attributes
+    // update the position attributes
     target.setAttribute('data-x', x);
     target.setAttribute('data-y', y);
 }
+
 interact('.resize-drag')
     .resizable({
         // resize from all edges and corners
@@ -42,13 +44,21 @@ interact('.resize-drag')
 
                 target.setAttribute('data-x', x);
                 target.setAttribute('data-y', y);
-                target.textContent = Math.round(event.rect.width) + '\u00D7' + Math.round(event.rect.height);
             }
         },
         modifiers: [
             // keep the edges inside the parent
             interact.modifiers.restrictEdges({
                 outer: 'parent'
+            }),
+
+            interact.modifiers.aspectRatio({
+                // make sure the width is always double the height
+                ratio: 'preserve',
+                // also restrict the size by nesting another modifier
+                modifiers: [
+                    interact.modifiers.restrictSize({max: 'parent'})
+                ]
             }),
 
             // minimum size
