@@ -9,8 +9,14 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import {defineProps} from 'vue';
 import DraggableWithInteractJS from './DraggableElement.vue';
+import Artwork from '../types/Artwork';
+
+defineProps<{
+    artworks: Artwork[]
+}>();
 </script>
 
 <style scoped>
