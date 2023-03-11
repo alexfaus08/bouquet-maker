@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/artwork', [\App\Http\Controllers\ArtworkController::class, 'index']);
+Route::get('/artwork_category', [\App\Http\Controllers\ArtworkCategoryController::class, 'index']);
