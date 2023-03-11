@@ -1,9 +1,7 @@
 <template>
-  <h1 class="text-xl text-sky-500">
-    <BouquetCanvas />
-  </h1>
+  <BouquetMaker />
 </template>
 
 <script setup lang="ts">
-import BouquetCanvas from './BouquetCanvas.vue';
+import BouquetMaker from '../views/BouquetMaker.vue';
 </script>
