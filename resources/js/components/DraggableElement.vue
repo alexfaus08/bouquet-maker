@@ -1,9 +1,18 @@
 <template>
-  <div class="resize-drag absolute box-border h-32 w-32 touch-none select-none bg-pink-600" />
+  <img
+    class="resize-drag absolute box-border h-40 touch-none select-none"
+    :src="'/storage/' + props.artwork.image"
+  >
 </template>
 
 <script setup lang="ts">
 import interact from 'interactjs';
+import {defineProps} from 'vue';
+import Artwork from '../types/Artwork';
+
+const props = defineProps<{
+    artwork: Artwork;
+}>();
 
 function dragMoveListener(event: { target: any; dx: number; dy: number; }) {
     const target = event.target;
@@ -49,7 +58,6 @@ interact('.resize-drag')
         modifiers: [
 
             interact.modifiers.aspectRatio({
-                // make sure the width is always double the height
                 ratio: 'preserve',
                 // also restrict the size by nesting another modifier
                 modifiers: [
